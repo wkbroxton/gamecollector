@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Game List</h1>
+
+{% for game in games %}
+  <div class="card">
+    <a href="{% url 'detail' game.id %}">
+      <div class="card-content">
+        <span class="card-title">{{ game.name }}</span>
+        <p>Console: {{ game.console }}</p>
+        <p>Description: {{ game.description }}</p>
+        {% if game.year > 0 %}
+          <p>Year: {{ game.year }}</p>
+        {% else %}
+          <p>Year: 2021</p>
+        {% endif %}
+      </div>
+    </a>
+  </div>
+{% endfor %}
+
+{% endblock %}
