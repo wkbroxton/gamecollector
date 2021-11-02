@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Game Details</h1>
+<h1>Game List</h1>
 
   <div class="card">
       <div class="card-content">
@@ -12,7 +12,15 @@
           <p>Year: {{ game.year }}</p>
         {% else %}
           <p>Year: 2021</p>
-        {% endif %}
+          {% endif %}
+        </div>
+        <!-- Add the following markup -->
+        <div class="card-action">
+          <a href="{% url 'games_update' game.id %}">Edit</a>
+          <a href="{% url 'games_delete' game.id %}">Delete</a>
+        </div>
+        <!-- New markup above -->
+      </div>
       </div>
   </div>
 
