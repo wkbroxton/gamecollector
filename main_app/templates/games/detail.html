@@ -3,7 +3,9 @@
 
 <h1>Game Details</h1>
 
-  <div class="card">
+<div class="row">
+  <div class="col s6">
+    <div class="card">
       <div class="card-content">
         <span class="card-title">{{ game.name }}</span>
         <p>Console: {{ game.console }}</p>
@@ -13,15 +15,114 @@
         {% else %}
           <p>Year: 2021</p>
           {% endif %}
-        </div>
-        <!-- Add the following markup -->
-        <div class="card-action">
-          <a href="{% url 'games_update' game.id %}">Edit</a>
-          <a href="{% url 'games_delete' game.id %}">Delete</a>
-        </div>
-        <!-- New markup above -->
       </div>
+      <div class="card-action">
+        <a href="{% url 'games_update' game.id %}">Edit</a>
+        <a href="{% url 'games_delete' game.id %}">Delete</a>
       </div>
+    </div>
+    {% for photo in game.photo_set.all %}
+      <img class="responsive-img card-panel" src="{{photo.url}}" alt="game photo">
+    {% empty %}
+      <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+    {% endfor %}
+    <form action="{% url 'add_photo' game.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+      {% csrf_token %}
+      <input type="file" name="photo-file">
+      <br><br>
+      <input type="submit" class="btn" value="Upload Photo">
+    </form>
   </div>
+  <div class="col s6">
+    <form action="{% url 'add_play' game.id %}" method="POST">
+      {% csrf_token %}
+      {{ play_form.as_p }}
+      <input type="submit" class="btn" value="Add Play">
+    </form>
+    <br>
+    {% if game.played_for_today %}
+      <div class="card-panel teal-text center-align">{{game.name}} has been played ALL-DAY-LONG. Take a break, fam.</div>
+    {% else %}
+      <div class="card-panel red-text center-align">{{game.name}} might be a bit lonely....just saying.</div>
+    {% endif %}
+    <table class="striped">
+      <thead>
+        <tr><th>Date</th><th>Time of Day Played</th></tr>
+      </thead>
+      <tbody>
+        {% for play in game.play_set.all %}
+          <tr>
+            <td>{{play.date}}</td>
+            <td>{{play.get_time_display}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col s6">
+    <h3>{{ game.name }}'s Accessories</h3>
+    {% if game.accessories.count %}
+      {% for accessory in accessory.accessories.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              A <span style="color: {{ accessory.color }}">{{ accessory.color }}</span> {{ accessory.name }}
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'unassoc_accessory' game.id accessory.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn">Remove</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>No Accessories :(</h5>
+    {% endif %}
+  </div>
+  <!-- Available toys will come after this line -->
+  <div class="col s6">
+    <h3>Available Accessories</h3>
+    {% if accessories.count %}
+      {% for accessory in accessories.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              A <span style="color: {{ accessory.color }}">{{ accessory.color }}</span> {{ accessory.name }}
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'assoc_accessory' accessory.id accessory.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn">Add</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>{{accessory.name}} Already Has All Available Accessories</h5>
+    {% endif %}
+  </div>
+
+</div>
+
+<script>
+
+  const dateEl = document.getElementById('id_date');
+  M.Datepicker.init(dateEl, {
+    format: 'yyyy-mm-dd',
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  });
+
+  const selectEl = document.getElementById('id_meal');
+  M.FormSelect.init(selectEl);
+
+</script>
 
 {% endblock %}

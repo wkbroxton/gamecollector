@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from datetime import date
 
 # Create your models here.
 
@@ -22,14 +23,15 @@ class Game(models.Model):
     # Add this method
   def get_absolute_url(self):
     return reverse('detail', kwargs={'game_id': self.id})
+  
+  def played_for_today(self):
+    return self.play_set.filter(date=date.today()).count() >= len(TIMES)
 
 class Play(models.Model):
-  date = models.DateField()
-  time = models.CharField(
+  date = models.DateField('Date Played')
+  time = models.CharField('Time of Day Played',
     max_length=1,
-    # add the 'choices' field option
     choices=TIMES,
-    # set the default value for meal to be 'B'
     default=TIMES[0][0])
   
   game = models.ForeignKey(Game, on_delete=models.CASCADE)
@@ -37,3 +39,12 @@ class Play(models.Model):
   def __str__(self):
     return f"{self.get_time_display()} on {self.date}"
 
+  class Meta:
+    ordering = ['-date']
+
+class Photo(models.Model):
+  url = models.CharField(max_length=200)
+  cat = models.ForeignKey(Game, on_delete=models.CASCADE)
+
+  def __str__(self):
+    return f"Photo for cat_id: {self.cat_id} @{self.url}"
