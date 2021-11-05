@@ -1,7 +1,7 @@
 from django.contrib import admin
+# add Feeding to the import
+from .models import Game, Play
 
-## import your models here
-from .models import Game
-
-# Register your models here
 admin.site.register(Game)
+# register the new Feeding Model 
+admin.site.register(Play)
