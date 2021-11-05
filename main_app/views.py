@@ -22,13 +22,13 @@ def games_detail(request, game_id):
 
 class GameCreate(CreateView):
   model = Game
-  fields = '__all__'
+  fields = ['name', 'console', 'description', 'year']
   success_url = '/games/'
 
 class GameUpdate(UpdateView):
   model = Game
   # Let's disallow the renaming of a cat by excluding the name field!
-  fields = ['console', 'description', 'year']
+  fields = ['name', 'console', 'description', 'year']
 
 class GameDelete(DeleteView):
   model = Game

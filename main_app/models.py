@@ -30,12 +30,10 @@ class Play(models.Model):
     # add the 'choices' field option
     choices=TIMES,
     # set the default value for meal to be 'B'
-    default=TIMES[0][0]
-  )
-
+    default=TIMES[0][0])
+  
   game = models.ForeignKey(Game, on_delete=models.CASCADE)
 
   def __str__(self):
-    # Nice method for obtaining the friendly value of a Field.choice
     return f"{self.get_time_display()} on {self.date}"
 
