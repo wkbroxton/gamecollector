@@ -9,6 +9,11 @@
   <title>Game Collector</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Rajdhani:wght@600&family=Rampart+One&family=Zen+Antique+Soft&display=swap" rel="stylesheet">
 </head>
 <body>
   <header class="navbar-fixed">
@@ -19,7 +24,7 @@
         </ul>
         <ul class="right">
             <li><a href="{% url 'about' %}">About</a></li>
-            <li><a href="{% url 'games_create' %}">Add A Games</a></li>
+            <li><a href="{% url 'games_create' %}">Add A Game</a></li>
             <li><a href="{% url 'index' %}">View All My Games</a></li>
         </ul>
       </div>

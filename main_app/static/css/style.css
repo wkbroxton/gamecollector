@@ -1,4 +1,9 @@
-body {
+  * {font-family: 'Bungee', cursive;
+    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Rampart One', cursive;
+    font-family: 'Zen Antique Soft', serif;}
+  
+  body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
@@ -11,4 +16,8 @@ body {
   footer.page-footer {
     padding-top: 0;
     text-align: right;
+  }
+
+  .page-footer, .nav-wrapper {
+    background-color: rgb(2, 2, 2)
   }
