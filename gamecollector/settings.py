@@ -124,3 +124,12 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Configure to read a .env file's secrets
+import environ
+environ.Env()
+environ.Env.read_env()
+
+# Variable to specify where successful logins should be redirected to
+LOGIN_REDIRECT_URL = '/games/'
+LOGOUT_REDIRECT_URL = '/'

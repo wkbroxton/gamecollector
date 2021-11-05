@@ -17,12 +17,20 @@
     <nav>
       <div class="nav-wrapper">
         <ul>
-          <li><a href="/" class="left brand-logo">&nbsp;&nbsp;GameCollector</a></li>
+          <li><a href="{% url 'home' %}" class="left brand-logo">&nbsp;&nbsp;GameCollector</a></li>
         </ul>
         <ul class="right">
-            <li><a href="{% url 'about' %}">About</a></li>
-            <li><a href="{% url 'games_create' %}">Add A Game</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'accessories_create' %}">Add an Accessory</a></li>
+            <li><a href="{% url 'accessories_index' %}">View All Accessories</a></li>
+            <li><a href="{% url 'games_create' %}">Add A New Game</a></li>
             <li><a href="{% url 'index' %}">View All My Games</a></li>
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
+          {% else %}
+            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+            <li><a href="{% url 'login' %}">Log In</a></li>
+          {% endif %}
         </ul>
       </div>
     </nav>
