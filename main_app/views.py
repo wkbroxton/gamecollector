@@ -30,7 +30,7 @@ def games_index(request):
 def games_detail(request, game_id):
   game = Game.objects.get(id=game_id)
   accessories_game_doesnt_have  = Accessory.objects.exclude(id__in=game.accessories.all().values_list('id'))
-  play_form = PlayForm
+  play_form = PlayForm()
   return render(request, 'games/detail.html', { 
     'game': game, 
     'play_form': play_form,
