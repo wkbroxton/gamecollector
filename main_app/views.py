@@ -29,7 +29,7 @@ def games_index(request):
 @login_required
 def games_detail(request, game_id):
   game = Game.objects.get(id=game_id)
-  accessories_game_doesnt_have  = Accessory.objects.exclude(id__in=game.accessories.all().values_list('id'))
+  accessories_game_doesnt_have = Accessory.objects.exclude(id__in=game.accessories.all().values_list('id'))
   play_form = PlayForm()
   return render(request, 'games/detail.html', { 
     'game': game, 
@@ -70,7 +70,7 @@ class AccessoryDetail(DetailView, LoginRequiredMixin):
 
 class AccessoryCreate(CreateView, LoginRequiredMixin):
   model = Accessory
-  fields = ['name', 'color']
+  fields = '__all__'
 
 class AccessoryUpdate(UpdateView, LoginRequiredMixin):
   model = Accessory

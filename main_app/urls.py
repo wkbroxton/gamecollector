@@ -13,6 +13,7 @@ urlpatterns = [
     path('games/<int:game_id>/assoc_accessory/<int:accessory_id>/', views.assoc_accessory, name='assoc_accessory'),
     path('games/<int:game_id>/unassoc_accessory/<int:accessory_id>/', views.unassoc_accessory, name='unassoc_accessory'),
     path('games/<int:game_id>/add_photo/', views.add_photo, name='add_photo'),
+    
     path('accessories/', views.AccessoryList.as_view(), name='accessories_index'),
     path('accessories/<int:pk>/', views.AccessoryDetail.as_view(), name='accessories_detail'),
     path('accessories/create/', views.AccessoryCreate.as_view(), name='accessories_create'),

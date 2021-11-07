@@ -11,10 +11,10 @@
         <p>Console: {{ game.console }}</p>
         <p>Description: {{ game.description }}</p>
         {% if game.year > 0 %}
-          <p>Year: {{ game.year }}</p>
+          <p>Year: {{ game.age }}</p>
         {% else %}
           <p>Year: 2021</p>
-          {% endif %}
+        {% endif %}
       </div>
       <div class="card-action">
         <a href="{% url 'games_update' game.id %}">Edit</a>
@@ -37,7 +37,7 @@
     <form action="{% url 'add_play' game.id %}" method="POST">
       {% csrf_token %}
       {{ play_form.as_p }}
-      <input type="submit" class="btn" value="Add Play">
+      <input type="submit" class="btn" value="Add Playing Session">
     </form>
     <br>
     {% if game.played_for_today %}
@@ -47,7 +47,7 @@
     {% endif %}
     <table class="striped">
       <thead>
-        <tr><th>Date</th><th>Time of Day Played</th></tr>
+        <tr><th>Date</th><th>Time of the Day</th></tr>
       </thead>
       <tbody>
         {% for play in game.play_set.all %}
@@ -64,30 +64,31 @@
 <div class="row">
   <div class="col s6">
     <h3>{{ game.name }}'s Accessories</h3>
-    {% if game.accessory.count %}
+    {% if game.accessories.count %}
       {% for accessory in game.accessories.all %}
         <div class="card">
-          <div class="card-content">
-            <form action="{% url 'unassoc_accessory' game.id accessory.id %}" method="post">
-              {% csrf_token %}
-              <button type="submit" class="btn-small waves-effect waves-light red">Remove Accessory</button>
-            </form>
-          </div>
           <div class="card-content">
             <span class="card-title">
               A <span style="color: {{ accessory.color }}">{{ accessory.color }}</span> {{ accessory.name }}
             </span>
           </div>
+          <div class="card-action">
+            <form action="{% url 'unassoc_accessory' game.id accessory.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn">Remove</button>
+            </form>
+          </div>
         </div>
       {% endfor %}
     {% else %}
-      <h5>No Accessories :(</h5>
+      <h5>No Accesories :(</h5>
     {% endif %}
   </div>
+  <!-- Available toys will come after this line -->
   <div class="col s6">
     <h3>Available Accessories</h3>
     {% if accessories.count %}
-      {% for accesory in accessories.all %}
+      {% for accessory in accessories.all %}
         <div class="card">
           <div class="card-content">
             <span class="card-title">
@@ -106,7 +107,6 @@
       <h5>{{game.name}} Already Has All Accessories Available</h5>
     {% endif %}
   </div>
-</div>
 
 </div>
 
@@ -122,6 +122,7 @@
 
   const selectEl = document.getElementById('id_time');
   M.FormSelect.init(selectEl);
+
 </script>
 
 {% endblock %}
