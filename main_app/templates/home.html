@@ -8,16 +8,16 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Game Collector</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Rajdhani:wght@600&family=Rampart+One&family=Zen+Antique+Soft&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Rajdhani:wght@600&family=Rampart+One&family=Zen+Antique+Soft&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
   <header class="navbar-fixed">
     <nav>
       <div class="nav-wrapper">
         <ul>
-          <li><a href="{% url 'home' %}" class="left brand-logo">&nbsp;&nbsp;GameCollector</a></li>
+          <li><a href="{% url 'home' %}" class="left brand-logo">&nbsp;&nbsp;Game Collector</a></li>
         </ul>
         <ul class="right">
           <li><a href="{% url 'about' %}">About</a></li>
@@ -35,15 +35,20 @@
       </div>
     </nav>
   </header>
-  <video playsinline autoplay muted loop poster="https://i.imgur.com/u21Sk9P.jpg" id="bgvid">
-    <source src="https://i.imgur.com/PsX8AJE.mp4" type="video/webm">
+  <main  class="container">
+  <video playsinline autoplay muted poster="https://i.imgur.com/JWKLIBB.jpg" id="bgvid">
+    <source src="https://i.imgur.com/RD4CKiC.mp4" type="video/webm">
   </video>
-  <main class="container">
+  <header id= "home-vp" class="viewport-header">
+    <h1>
+      Welcome to the
+      <span>Game Collector</span>
+    </h1>
+  </header>
+  
     {% block content %}
 
     {% endblock %}
-
-
   </main>
   <footer class="page-footer">
     <div class="right">All Rights Reserved, &copy; 2021 Game Collector &nbsp;</div>
