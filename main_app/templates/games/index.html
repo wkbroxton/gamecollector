@@ -4,10 +4,16 @@
 <h1>Game List</h1>
 
 {% for game in games %}
-  <div class="card">
+  <div id="idx-card" class="card">
     <a href="{% url 'detail' game.id %}">
       <div class="card-content">
+        {% for photo in game.photo_set.all %}
+      <img class="responsive-img card-panel" src="{{photo.url}}" alt="game photo">
+    {% empty %}
+      <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+    {% endfor %}
         <span class="card-title">{{ game.name }}</span>
+
       </div>
     </a>
   </div>
